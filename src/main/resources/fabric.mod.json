@@ -1,0 +1,28 @@
+{
+    "schemaVersion": 1,
+    "id": "sweed",
+    "name": "Sweed",
+    "description": "Sugar-rich, fast breeding plants!",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "UpcraftLP",
+            "contact": {
+                "homepage": "https://twitter.com/UpcraftLP"
+            }
+        }
+    ],
+    "contributors": [
+        "Yoghurt4C"
+    ],
+    "side": "universal",
+    "version": "${version}",
+    "depends": {
+        "fabric": "*"
+    },
+    "entrypoints": {
+        "main": [
+            "nerdhub.sweed.Sweed"
+        ]
+    }
+}

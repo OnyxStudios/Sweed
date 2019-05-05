@@ -1,0 +1,11 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+      {"item":"minecraft:grass"},
+      {"item":"minecraft:sugar"},
+      {"item":"minecraft:phantom_membrane"}
+  ],
+  "result": {
+    "item": "sweed:sweed_seeds"
+  }
+}
