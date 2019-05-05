@@ -15,6 +15,7 @@
     "contributors": [
         "Yoghurt4C"
     ],
+    "icon": "assets/sweed/icon.png",
     "side": "universal",
     "version": "${version}",
     "depends": {
