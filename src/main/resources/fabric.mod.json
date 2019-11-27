@@ -24,6 +24,9 @@
     "entrypoints": {
         "main": [
             "nerdhub.sweed.Sweed"
+        ],
+        "client": [
+            "nerdhub.sweed.client.SweedClient"
         ]
     }
 }

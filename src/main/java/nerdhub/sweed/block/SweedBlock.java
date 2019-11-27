@@ -24,16 +24,6 @@ public class SweedBlock extends BeetrootsBlock {
         super(FabricBlockSettings.of(Material.PLANT).noCollision().ticksRandomly().breakInstantly().sounds(BlockSoundGroup.CROP).build());
     }
 
-    @Override
-    public boolean isMature(BlockState state) {
-        return this.getAge(state) > this.getMaxAge();
-    }
-
-    @Override
-    protected boolean canPlantOnTop(BlockState state, BlockView world, BlockPos pos) {
-        return Sweed.SWEED_SOIL.contains(state.getBlock());
-    }
-
     @Environment(EnvType.CLIENT)
     @Override
     protected ItemConvertible getSeedsItem() {
@@ -63,14 +53,6 @@ public class SweedBlock extends BeetrootsBlock {
         }
     }
 
-    @Override
-    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
-        if(this.getAge(state) == this.getMaxAge() && random.nextDouble() < Sweed.getConfig().spreadChance) {
-            this.spread(world, pos, random);
-        }
-        super.grow(world, random, pos, state);
-    }
-
     private int spread(World world, BlockPos pos, Random random) {
         int maxSpreads = random.nextInt(Math.max(1, Sweed.getConfig().maxSpreadPlants)) + 1;
         int spreads = 0;
@@ -88,5 +70,23 @@ public class SweedBlock extends BeetrootsBlock {
             }
         }
         return spreads;
+    }
+
+    @Override
+    protected boolean canPlantOnTop(BlockState state, BlockView world, BlockPos pos) {
+        return Sweed.SWEED_SOIL.contains(state.getBlock());
+    }
+
+    @Override
+    public boolean isMature(BlockState state) {
+        return this.getAge(state) > this.getMaxAge();
+    }
+
+    @Override
+    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+        if(this.getAge(state) == this.getMaxAge() && random.nextDouble() < Sweed.getConfig().spreadChance) {
+            this.spread(world, pos, random);
+        }
+        super.grow(world, random, pos, state);
     }
 }
