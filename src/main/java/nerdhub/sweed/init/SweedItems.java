@@ -6,5 +6,5 @@ import net.minecraft.item.ItemGroup;
 
 public class SweedItems {
 
-    public static final Item SWEED_SEEDS = new AliasedBlockItem(SweedBlocks.SWEED, (new Item.Settings()).itemGroup(ItemGroup.MATERIALS));
+    public static final Item SWEED_SEEDS = new AliasedBlockItem(SweedBlocks.SWEED, new Item.Settings().group(ItemGroup.MATERIALS));
 }

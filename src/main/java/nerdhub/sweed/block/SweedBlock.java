@@ -9,7 +9,8 @@ import net.fabricmc.fabric.api.block.FabricBlockSettings;
 import net.minecraft.block.BeetrootsBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.item.ItemProvider;
+import net.minecraft.item.ItemConvertible;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.BlockView;
@@ -24,8 +25,8 @@ public class SweedBlock extends BeetrootsBlock {
     }
 
     @Override
-    public boolean isValidState(BlockState state) {
-        return this.getCropAge(state) > this.getCropAgeMaximum();
+    public boolean isMature(BlockState state) {
+        return this.getAge(state) > this.getMaxAge();
     }
 
     @Override
@@ -35,23 +36,23 @@ public class SweedBlock extends BeetrootsBlock {
 
     @Environment(EnvType.CLIENT)
     @Override
-    protected ItemProvider getCropItem() {
+    protected ItemConvertible getSeedsItem() {
         return SweedItems.SWEED_SEEDS;
     }
 
     @Override
-    public void onScheduledTick(BlockState state, World world, BlockPos pos, Random random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         SweedConfig config = Sweed.getConfig();
         if(random.nextInt(3) != 0) {
-            int age = this.getCropAge(state);
-            if(age < getCropAgeMaximum()) {
+            int age = this.getAge(state);
+            if(age < this.getMaxAge()) {
                 if(world.getLightLevel(pos, 0) >= 9 && random.nextInt((int) (25.0F / getAvailableMoisture(this, world, pos)) + 1) == 0) {
-                    if(age == getCropAgeMaximum() - 1 && config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
+                    if(age == this.getMaxAge() - 1 && config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
                         if(this.spread(world, pos, random) > 0) {
                             return;
                         }
                     }
-                    world.setBlockState(pos, this.withCropAge(age + 1), 2);
+                    world.setBlockState(pos, this.withAge(age + 1), 2);
                 }
             }
             else {
@@ -63,8 +64,8 @@ public class SweedBlock extends BeetrootsBlock {
     }
 
     @Override
-    public void grow(World world, Random random, BlockPos pos, BlockState state) {
-        if(getCropAge(state) == getCropAgeMaximum() && random.nextDouble() < Sweed.getConfig().spreadChance) {
+    public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+        if(this.getAge(state) == this.getMaxAge() && random.nextDouble() < Sweed.getConfig().spreadChance) {
             this.spread(world, pos, random);
         }
         super.grow(world, random, pos, state);

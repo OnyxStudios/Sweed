@@ -18,7 +18,6 @@ public class Sweed implements ModInitializer {
 
     public static final String MODID = "sweed";
     public static final Logger logger = LogManager.getLogger(MODID);
-    private static final SweedConfig config = new SweedConfig();
     public static final Tag<Block> SWEED_SOIL = TagRegistry.block(new Identifier(MODID, "sweed_soil"));
     public static final Tag<Block> CROP_LIKE = TagRegistry.block(new Identifier(MODID, "crop_like"));
 
@@ -32,6 +31,6 @@ public class Sweed implements ModInitializer {
     }
 
     public static SweedConfig getConfig() {
-        return config;
+        return ConfigHandler.getConfig(SweedConfig.class);
     }
 }

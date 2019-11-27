@@ -14,7 +14,7 @@ public class ConfigReloader implements SimpleSynchronousResourceReloadListener {
 
     public static void init() {
         Sweed.logger.debug("enabling config reloader");
-        ResourceManagerHelper.get(ResourceType.DATA).registerReloadListener(new ConfigReloader());
+        ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(new ConfigReloader());
     }
 
     @Override
