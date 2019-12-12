@@ -33,11 +33,12 @@ public class SweedBlock extends BeetrootsBlock {
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         SweedConfig config = Sweed.getConfig();
-        if(random.nextInt(3) != 0) {
+        if(random.nextDouble() < 0.66D) {
             int age = this.getAge(state);
             if(age < this.getMaxAge()) {
-                if(world.getLightLevel(pos, 0) >= 9 && random.nextInt((int) (25.0F / getAvailableMoisture(this, world, pos)) + 1) == 0) {
-                    if(age == this.getMaxAge() - 1 && config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
+                float moisture = Math.max(getAvailableMoisture(this, world, pos), 1.0F);
+                if(world.getLightLevel(pos, 0) >= 9 && random.nextInt((int) (25.0F / moisture) + 1) == 0) {
+                    if(age == this.getMaxAge() - 1 && !config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
                         if(this.spread(world, pos, random) > 0) {
                             return;
                         }
@@ -45,10 +46,8 @@ public class SweedBlock extends BeetrootsBlock {
                     world.setBlockState(pos, this.withAge(age + 1), 2);
                 }
             }
-            else {
-                if(!config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
-                    this.spread(world, pos, random);
-                }
+            else if(config.aggressiveSpread && random.nextDouble() < config.spreadChance) {
+                this.spread(world, pos, random);
             }
         }
     }
