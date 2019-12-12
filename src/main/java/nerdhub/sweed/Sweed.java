@@ -7,6 +7,7 @@ import nerdhub.sweed.init.SweedBlocks;
 import nerdhub.sweed.init.SweedItems;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.tag.TagRegistry;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.tag.Tag;
 import net.minecraft.util.Identifier;
@@ -20,6 +21,9 @@ public class Sweed implements ModInitializer {
     public static final Logger logger = LogManager.getLogger(MODID);
     public static final Tag<Block> SWEED_SOIL = TagRegistry.block(new Identifier(MODID, "sweed_soil"));
     public static final Tag<Block> CROP_LIKE = TagRegistry.block(new Identifier(MODID, "crop_like"));
+
+    // Compatability Fields
+    public static final boolean DEMETER = FabricLoader.getInstance().isModLoaded("demeter");
 
     @Override
     public void onInitialize() {
