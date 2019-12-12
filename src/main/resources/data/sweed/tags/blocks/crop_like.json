@@ -1,11 +1,6 @@
 {
     "replace": false,
     "values": [
-        "minecraft:beetroots",
-        "minecraft:carrots",
-        "minecraft:melon_stem",
-        "minecraft:potatoes",
-        "minecraft:pumpkin_stem",
-        "minecraft:wheat"
+        "#c:crop_like"
     ]
 }
