@@ -32,6 +32,11 @@ public class SweedBlock extends BeetrootsBlock {
 
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+        if (Sweed.DEMETER) {
+            super.scheduledTick(state, world, pos, random);
+            return;
+        }
+
         SweedConfig config = Sweed.getConfig();
         if(random.nextDouble() < 0.66D) {
             int age = this.getAge(state);
@@ -83,6 +88,12 @@ public class SweedBlock extends BeetrootsBlock {
 
     @Override
     public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+        if (Sweed.DEMETER) {
+            super.grow(world, random, pos, state);
+            return;
+        }
+
+
         if(this.getAge(state) == this.getMaxAge() && random.nextDouble() < Sweed.getConfig().spreadChance) {
             this.spread(world, pos, random);
         }
